@@ -16,13 +16,13 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _usernameCtrl = TextEditingController();
+  final _emailCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
   bool _obscurePassword = true;
 
   @override
   void dispose() {
-    _usernameCtrl.dispose();
+    _emailCtrl.dispose();
     _passwordCtrl.dispose();
     super.dispose();
   }
@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     final auth = context.read<AuthProvider>();
     final ok = await auth.login(
-      username: _usernameCtrl.text.trim(),
+      email: _emailCtrl.text.trim(),
       password: _passwordCtrl.text,
     );
 
@@ -54,7 +54,8 @@ class _LoginScreenState extends State<LoginScreen> {
           content: Text(message),
           backgroundColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
       );
   }
@@ -107,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Sign in to continue managing your tasks',
+                      'Sign in with your BITS WILP email to continue',
                       style: textTheme.bodyMedium?.copyWith(
                         color: colorScheme.onSurfaceVariant,
                       ),
@@ -121,11 +122,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         children: [
                           CustomTextField(
-                            controller: _usernameCtrl,
-                            label: 'Username',
-                            hint: 'Enter your username',
-                            prefixIcon: Icons.person_outline_rounded,
-                            validator: Validators.required('Username'),
+                            controller: _emailCtrl,
+                            label: 'BITS WILP email',
+                            hint: '2025tm93217@wilp.bits-pilani.ac.in',
+                            prefixIcon: Icons.email_outlined,
+                            validator: Validators.email,
+                            keyboardType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.next,
                           ),
                           const SizedBox(height: 16),
@@ -177,8 +179,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: textTheme.bodyMedium,
                         ),
                         TextButton(
-                          onPressed: () =>
-                              Navigator.of(context).pushNamed(AppRoutes.register),
+                          onPressed: () => Navigator.of(context)
+                              .pushNamed(AppRoutes.register),
                           child: const Text('Sign up'),
                         ),
                       ],

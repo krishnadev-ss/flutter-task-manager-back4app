@@ -6,7 +6,7 @@ A production-ready Flutter task management app backed by [Back4App](https://www.
 
 | Category | Detail |
 |---|---|
-| **Auth** | Sign-up, Login, persistent session, Logout |
+| **Auth** | Email-only sign-up/login, persistent session, Logout |
 | **Tasks** | Full CRUD — create, read, update, delete |
 | **Status** | Toggle complete / incomplete per task |
 | **Due dates** | Optional due date with overdue highlighting |

@@ -2,6 +2,8 @@
 class Validators {
   Validators._();
 
+  static const String _bitsWilpDomain = '@wilp.bits-pilani.ac.in';
+
   /// Returns a validator that fails if the field is empty.
   static String? Function(String?) required(String fieldName) {
     return (value) {
@@ -12,32 +14,18 @@ class Validators {
     };
   }
 
-  /// Username: 3–30 chars, alphanumeric + underscores only.
-  static String? username(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'Username is required';
-    }
-    if (value.trim().length < 3) {
-      return 'Username must be at least 3 characters';
-    }
-    if (value.trim().length > 30) {
-      return 'Username must be 30 characters or fewer';
-    }
-    final validChars = RegExp(r'^[a-zA-Z0-9_]+$');
-    if (!validChars.hasMatch(value.trim())) {
-      return 'Only letters, numbers, and underscores are allowed';
-    }
-    return null;
-  }
-
-  /// Standard email format check.
+  /// BITS WILP email format + domain check.
   static String? email(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'Email is required';
     }
+    final normalizedValue = value.trim().toLowerCase();
     final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
-    if (!emailRegex.hasMatch(value.trim())) {
+    if (!emailRegex.hasMatch(normalizedValue)) {
       return 'Enter a valid email address';
+    }
+    if (!normalizedValue.endsWith(_bitsWilpDomain)) {
+      return 'Use your BITS WILP email ending with $_bitsWilpDomain';
     }
     return null;
   }

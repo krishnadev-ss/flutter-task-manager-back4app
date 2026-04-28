@@ -48,7 +48,6 @@ class AuthProvider extends ChangeNotifier {
   // ─── Sign-up ──────────────────────────────────────────────────────────────
 
   Future<bool> signUp({
-    required String username,
     required String email,
     required String password,
   }) async {
@@ -56,7 +55,6 @@ class AuthProvider extends ChangeNotifier {
 
     try {
       _currentUser = await _authService.signUp(
-        username: username,
         email: email,
         password: password,
       );
@@ -76,14 +74,14 @@ class AuthProvider extends ChangeNotifier {
   // ─── Login ────────────────────────────────────────────────────────────────
 
   Future<bool> login({
-    required String username,
+    required String email,
     required String password,
   }) async {
     _beginLoading();
 
     try {
       _currentUser = await _authService.login(
-        username: username,
+        email: email,
         password: password,
       );
       _status = AuthStatus.authenticated;

@@ -14,7 +14,7 @@ class TaskService {
   /// [filterCompleted] restricts results to complete / incomplete tasks.
   Future<List<TaskModel>> getTasks({bool? filterCompleted}) async {
     final ParseUser? user = await ParseUser.currentUser() as ParseUser?;
-    if (user == null) throw TaskException('No authenticated user');
+    if (user == null) throw const TaskException('No authenticated user');
 
     final query = QueryBuilder<ParseObject>(ParseObject(_className))
       ..whereEqualTo('user', user)
@@ -41,7 +41,7 @@ class TaskService {
 
   Future<TaskModel> createTask(TaskModel task) async {
     final ParseUser? user = await ParseUser.currentUser() as ParseUser?;
-    if (user == null) throw TaskException('No authenticated user');
+    if (user == null) throw const TaskException('No authenticated user');
 
     final parseObject = task.toParseObject(user: user);
 
@@ -64,7 +64,7 @@ class TaskService {
 
   Future<TaskModel> updateTask(TaskModel task) async {
     if (task.objectId == null) {
-      throw TaskException('Cannot update a task without an objectId');
+      throw const TaskException('Cannot update a task without an objectId');
     }
 
     final parseObject = task.toParseObject();

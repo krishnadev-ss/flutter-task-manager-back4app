@@ -1,30 +1,45 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_task_manager_back4app/main.dart';
+import 'package:flutter_task_manager_back4app/utils/validators.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('BITS WILP email validation', () {
+    test('accepts a valid WILP email', () {
+      expect(
+        Validators.email('2025tm93217@wilp.bits-pilani.ac.in'),
+        isNull,
+      );
+    });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    test('accepts valid emails regardless of casing', () {
+      expect(
+        Validators.email('2025TM93217@WILP.BITS-PILANI.AC.IN'),
+        isNull,
+      );
+    });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    test('rejects non-WILP domains', () {
+      expect(
+        Validators.email('2025tm93217@gmail.com'),
+        'Use your BITS WILP email ending with @wilp.bits-pilani.ac.in',
+      );
+    });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    test('rejects empty email values', () {
+      expect(Validators.email(''), 'Email is required');
+    });
+  });
+
+  group('password validation', () {
+    test('rejects passwords shorter than 8 characters', () {
+      expect(
+        Validators.password('short'),
+        'Password must be at least 8 characters',
+      );
+    });
+
+    test('accepts passwords with 8 or more characters', () {
+      expect(Validators.password('password123'), isNull);
+    });
   });
 }

@@ -21,11 +21,11 @@ class UserModel {
   }
 
   /// Returns the display name — falls back to email prefix if username is blank.
-  String get displayName =>
-      username.isNotEmpty ? username : email.split('@').first;
+  String get displayName => username.isNotEmpty && username != email
+      ? username
+      : email.split('@').first;
 
   /// Returns the first letter of [displayName] in upper case (avatar initial).
-  String get initial => displayName.isNotEmpty
-      ? displayName[0].toUpperCase()
-      : '?';
+  String get initial =>
+      displayName.isNotEmpty ? displayName[0].toUpperCase() : '?';
 }

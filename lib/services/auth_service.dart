@@ -7,11 +7,11 @@ class AuthService {
   // ─── Sign-up ──────────────────────────────────────────────────────────────
 
   Future<UserModel> signUp({
-    required String username,
     required String email,
     required String password,
   }) async {
-    final user = ParseUser(username.trim(), password, email.trim().toLowerCase());
+    final normalizedEmail = _normalizeEmail(email);
+    final user = ParseUser(normalizedEmail, password, normalizedEmail);
     final response = await user.signUp();
 
     if (response.success && response.result != null) {
@@ -24,10 +24,10 @@ class AuthService {
   // ─── Login ────────────────────────────────────────────────────────────────
 
   Future<UserModel> login({
-    required String username,
+    required String email,
     required String password,
   }) async {
-    final user = ParseUser(username.trim(), password, null);
+    final user = ParseUser(_normalizeEmail(email), password, null);
     final response = await user.login();
 
     if (response.success && response.result != null) {
@@ -74,6 +74,8 @@ class AuthService {
   }
 
   // ─── Helpers ──────────────────────────────────────────────────────────────
+
+  String _normalizeEmail(String email) => email.trim().toLowerCase();
 
   String _errorFrom(ParseResponse response) {
     if (response.error != null) {

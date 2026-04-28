@@ -16,7 +16,6 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _usernameCtrl = TextEditingController();
   final _emailCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
   final _confirmCtrl = TextEditingController();
@@ -25,7 +24,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void dispose() {
-    _usernameCtrl.dispose();
     _emailCtrl.dispose();
     _passwordCtrl.dispose();
     _confirmCtrl.dispose();
@@ -38,7 +36,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     final auth = context.read<AuthProvider>();
     final ok = await auth.signUp(
-      username: _usernameCtrl.text.trim(),
       email: _emailCtrl.text.trim(),
       password: _passwordCtrl.text,
     );
@@ -60,7 +57,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           content: Text(message),
           backgroundColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
       );
   }
@@ -87,14 +85,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   // ── Header ──
                   Text(
-                    'Create your account',
+                    'Create your BITS WILP account',
                     style: textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    'Start organizing your life — it\'s free',
+                    'Use your student email to start managing tasks',
                     style: textTheme.bodyMedium?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                     ),
@@ -107,18 +105,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Column(
                       children: [
                         CustomTextField(
-                          controller: _usernameCtrl,
-                          label: 'Username',
-                          hint: 'Choose a username (letters, numbers, _)',
-                          prefixIcon: Icons.person_outline_rounded,
-                          validator: Validators.username,
-                          textInputAction: TextInputAction.next,
-                        ),
-                        const SizedBox(height: 16),
-                        CustomTextField(
                           controller: _emailCtrl,
-                          label: 'Email address',
-                          hint: 'you@example.com',
+                          label: 'BITS WILP email',
+                          hint: '2025tm93217@wilp.bits-pilani.ac.in',
                           prefixIcon: Icons.email_outlined,
                           validator: Validators.email,
                           keyboardType: TextInputType.emailAddress,
@@ -169,8 +158,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   : Icons.visibility_off_outlined,
                               color: colorScheme.onSurfaceVariant,
                             ),
-                            onPressed: () =>
-                                setState(() => _obscureConfirm = !_obscureConfirm),
+                            onPressed: () => setState(
+                                () => _obscureConfirm = !_obscureConfirm),
                           ),
                         ),
                         const SizedBox(height: 28),
