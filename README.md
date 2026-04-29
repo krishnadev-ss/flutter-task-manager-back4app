@@ -64,6 +64,40 @@ lib/
 
 ---
 
+## UI Screenshots
+
+Add your screenshots to `docs/screenshots/` using the filenames below:
+
+- `1.png`
+- `2.png`
+- `3.png`
+- `4.png`
+
+
+Once you add the files, they will appear here automatically.
+
+### Login Screen
+
+![Login Screen](docs/screenshots/login-screen.png)
+
+### Registration Screen
+
+![Registration Screen](docs/screenshots/register-screen.png)
+
+### Empty Dashboard
+
+![Empty Dashboard](docs/screenshots/dashboard-empty.png)
+
+### Add Task Screen
+
+![Add Task Screen](docs/screenshots/add-task-screen.png)
+
+### Dashboard With Task
+
+![Dashboard With Task](docs/screenshots/dashboard-with-task.png)
+
+---
+
 ## Setup
 
 ### 1. Prerequisites
